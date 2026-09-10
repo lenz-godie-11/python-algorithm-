@@ -11,13 +11,13 @@ from PySide6.QtWidgets import (
     QFileDialog,
 )
 
-from DASHBOARD.dashboard import Dashboard
-from PROGRESS.progress import Progress
-from SCANRESULT.scanresult import ScanResult
-from QUARANTINE.quarantine import Quarantine
-from THREATDATABASE.threatdatabase import ThreatDatabase
-from SCANHISTORY.scanhistory import ScanHistory
-from SETTINGS.settings import Settings
+from src.dashboard import Dashboard
+from src.progress import Progress
+from src.scanresult import ScanResult
+from src.quarantine import Quarantine
+from src.threatdatabase import ThreatDatabase
+from src.scanhistory import ScanHistory
+from src.settings import Settings
 
 
 class MainWindow(QMainWindow):
