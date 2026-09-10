@@ -14,6 +14,10 @@ from PySide6.QtWidgets import (
 from DASHBOARD.dashboard import Dashboard
 from PROGRESS.progress import Progress
 from SCANRESULT.scanresult import ScanResult
+from QUARANTINE.quarantine import Quarantine
+from THREATDATABASE.threatdatabase import ThreatDatabase
+from SCANHISTORY.scanhistory import ScanHistory
+from SETTINGS.settings import Settings
 
 
 class MainWindow(QMainWindow):
@@ -31,31 +35,50 @@ class MainWindow(QMainWindow):
 
         main_layout = QHBoxLayout(central)
 
+        # SIDEBAR
         sidebar = QVBoxLayout()
 
         dashboard_btn = QPushButton("Dashboard")
-        scan_btn = QPushButton("Scan")
+        scan_btn = QPushButton("Scanning")
         progress_btn = QPushButton("Progress")
         results_btn = QPushButton("Scan Results")
+        quarantine_btn = QPushButton("Quarantine")
+        database_btn = QPushButton("Threat Database")
+        history_btn = QPushButton("Scan History")
+        settings_btn = QPushButton("Settings")
 
         sidebar.addWidget(dashboard_btn)
         sidebar.addWidget(scan_btn)
         sidebar.addWidget(progress_btn)
         sidebar.addWidget(results_btn)
+        sidebar.addWidget(quarantine_btn)
+        sidebar.addWidget(database_btn)
+        sidebar.addWidget(history_btn)
+        sidebar.addWidget(settings_btn)
         sidebar.addStretch()
 
+        # PAGES
         self.pages = QStackedWidget()
 
         self.dashboard = Dashboard(self.start_scan)
         self.scan_page = self.create_scan_page()
         self.progress = Progress(self.cancel_scan)
         self.results = ScanResult()
+        self.quarantine = Quarantine()
+        self.database = ThreatDatabase()
+        self.history = ScanHistory()
+        self.settings = Settings()
 
         self.pages.addWidget(self.dashboard)
         self.pages.addWidget(self.scan_page)
         self.pages.addWidget(self.progress)
         self.pages.addWidget(self.results)
+        self.pages.addWidget(self.quarantine)
+        self.pages.addWidget(self.database)
+        self.pages.addWidget(self.history)
+        self.pages.addWidget(self.settings)
 
+        # NAVIGATION
         dashboard_btn.clicked.connect(
             lambda: self.pages.setCurrentWidget(self.dashboard)
         )
@@ -70,6 +93,22 @@ class MainWindow(QMainWindow):
 
         results_btn.clicked.connect(
             lambda: self.pages.setCurrentWidget(self.results)
+        )
+
+        quarantine_btn.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.quarantine)
+        )
+
+        database_btn.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.database)
+        )
+
+        history_btn.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.history)
+        )
+
+        settings_btn.clicked.connect(
+            lambda: self.pages.setCurrentWidget(self.settings)
         )
 
         main_layout.addLayout(sidebar)
